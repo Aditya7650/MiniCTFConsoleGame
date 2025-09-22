@@ -35,6 +35,73 @@ dotnet build ; dotnet run
 - `Models/` – interfaces and models
 - `Data/challenges.json` – challenge definitions
 
+## Diagrams
+
+### Architecture (high-level)
+
+```mermaid
+graph TD
+   A[Program.cs] --> B[CtfGame]
+   B --> C[ChallengeFactory]
+   C --> D1[Base64Challenge]
+   C --> D2[CaesarChallenge]
+   C --> D3[WeakRegexLoginChallenge]
+   C --> D4[HashCrackChallenge]
+   C --> D5[SqlInjectionChallenge]
+   C --> D6[DecodeChallenge]
+   C --> D7[WebBypassChallenge]
+   B --> E[FlagService]
+   D1 -->|uses| E
+   D2 -->|uses| E
+   D3 -->|uses| E
+   D4 -->|uses| E
+   D5 -->|uses| E
+   D6 -->|uses| E
+   D7 -->|uses| E
+   A --> F[(Data/challenges.json)]
+   B --> F
+   G[RandomText]:::util
+   D1 --> G
+   D2 --> G
+   D3 --> G
+   D4 --> G
+   D6 --> G
+   classDef util fill:#eef,stroke:#88a,stroke-width:1px
+```
+
+### Decode pipelines (how to solve)
+
+```mermaid
+flowchart TD
+   subgraph Pipeline example: base64|rot13
+   P[plaintext] --> S1[base64] --> S2[rot13] --> E[shown to player]
+   end
+   subgraph Solve order (reverse)
+   E --> R1[rot13^-1] --> R2[base64^-1] --> P
+   end
+```
+
+### Challenge run (sequence)
+
+```mermaid
+sequenceDiagram
+   participant U as User
+   participant P as Program.cs
+   participant G as CtfGame
+   participant F as ChallengeFactory
+   participant C as IChallenge
+   participant FS as FlagService
+   U->>P: start
+   P->>G: Run()
+   G->>F: Create(definition)
+   F-->>G: IChallenge instance
+   G->>C: Run()
+   C->>FS: GenerateFlag(id)
+   FS-->>C: flag{...}
+   C-->>G: ChallengeResult(Success, Flag)
+   G-->>U: Show flag and message
+```
+
 ## Adding New Challenges
 
 1. Create a new class in `Puzzles/` implementing `IChallenge` and accepting a `ChallengeDefinition` in the constructor.
@@ -47,7 +114,7 @@ dotnet build ; dotnet run
 
 Add these GitHub topics to help others discover the project:
 
-`ctf`, `capture-the-flag`, `security`, `cybersecurity`, `cryptography`, `puzzles`, `dotnet`, `dotnet-8`, `csharp`, `console-app`, `education`, `learning`, `reverse-engineering`, `web-security`, `encoding`
+`ctf`, `capture-the-flag`, `security`, `cybersecurity`, `cryptography`, `c`, `dotnet`, `dotnet-8`, `csharp`, `c`, `education`, `learning`, `reverse-engineering`, `web-security`, `encoding`
 
 ## Educational Notes
 
