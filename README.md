@@ -4,16 +4,16 @@ A lightweight C# console application delivering a text-based Capture The Flag ex
 
 ## Features
 
-- Base64 decoding challenge
-- Caesar cipher cracking challenge
-- Weak regex login bypass simulation
-- Hash cracking (SHA-256) challenge
-- SQL injection bypass simulation
+- 50 unique CTF challenges (no repetition)
+- Multi-mode Decode engine: base64, hex, url, rot13, rot47, atbash, reverse, ascii-dec, ascii-oct, binary8, leetspeak, vigenere, railfence, plus pipelines (e.g., `base64|rot13`)
+- WebBypass engine: open-redirect, path-traversal, command injection, XSS, IDOR
+- Dynamic per-run challenge content (problems change each execution)
+- Dynamic HMAC-based flags (no flags stored in JSON; optional `MINI_CTF_SECRET` for stable flags)
 - JSON-driven challenge definitions for easy extension
 
 ## Requirements
 
-- .NET 6 SDK or later
+- .NET 8 SDK
 
 ## Run
 
@@ -43,6 +43,12 @@ dotnet build ; dotnet run
    - Note: Flags are generated dynamically via HMAC using the challenge `id`. Do not store static flags in JSON.
    - Optional: Set an environment variable `MINI_CTF_SECRET` to a stable secret if you want flags to be consistent across runs.
 
+## Topics
+
+Add these GitHub topics to help others discover the project:
+
+`ctf`, `capture-the-flag`, `security`, `cybersecurity`, `cryptography`, `puzzles`, `dotnet`, `dotnet-8`, `csharp`, `console-app`, `education`, `learning`, `reverse-engineering`, `web-security`, `encoding`
+
 ## Educational Notes
 
 - Base64: Encoding vs encryption
@@ -52,8 +58,8 @@ dotnet build ; dotnet run
 ## Roadmap
 
 - Scoring, hints, and leaderboard
-- Additional puzzles (hash cracking, SQL injection simulation, XSS)
-- Packaged puzzle packs for classrooms and training
+- CI (build/test) and packaged puzzle packs for classrooms and training
+- More decode pipelines and web vuln variants
 
 ---
 Enjoy and learn!
