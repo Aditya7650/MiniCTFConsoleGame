@@ -1,0 +1,26 @@
+# Build outputs
+bin/
+obj/
+
+# VS Code settings
+.vscode/
+
+# User-specific
+*.user
+*.suo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# NuGet
+*.nupkg
+packages/
+.nuget/
+
+# Logs
+*.log
+
+# Rider
+.idea/
+*.sln.iml
