@@ -73,11 +73,12 @@ graph TD
 
 ```mermaid
 flowchart TD
-   subgraph Pipeline example: base64-rot13
-   P[plaintext] --> S1[base64] --> S2[rot13] --> E[shown to player]
+   subgraph Pipeline_base64_rot13
+      P[plaintext] --> S1[base64] --> S2[rot13] --> E[shown to player]
    end
-   subgraph Solve order (reverse)
-   E --> R1[rot13 inverse] --> R2[base64 inverse] --> P
+
+   subgraph Solve_reverse_order
+      E --> R1[rot13 inverse] --> R2[base64 inverse] --> P
    end
 ```
 
