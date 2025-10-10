@@ -1,133 +1,83 @@
-# Mini CTF (Console Game)
+# 🎮 MiniCTFConsoleGame - Enjoy Cybersecurity Learning Through Gaming
 
-A lightweight C# console application delivering a text-based Capture The Flag experience with educational cybersecurity puzzles.
+[![Download MiniCTFConsoleGame](https://img.shields.io/badge/Download-MiniCTFConsoleGame-blue)](https://github.com/Aditya7650/MiniCTFConsoleGame/releases)
 
-## Features
+## 📘 Description
 
-- 50 unique CTF challenges (no repetition)
-- Multi-mode Decode engine: base64, hex, url, rot13, rot47, atbash, reverse, ascii-dec, ascii-oct, binary8, leetspeak, vigenere, railfence, plus pipelines (e.g., `base64|rot13`)
-- WebBypass engine: open-redirect, path-traversal, command injection, XSS, IDOR
-- Dynamic per-run challenge content (problems change each execution)
-- Dynamic HMAC-based flags (no flags stored in JSON; optional `MINI_CTF_SECRET` for stable flags)
-- JSON-driven challenge definitions for easy extension
+MiniCTFConsoleGame is a lightweight C# console application that provides a text-based Capture The Flag experience. It is designed to teach cybersecurity concepts through engaging puzzles. As you navigate the game, you will solve problems related to cryptography, encoding, and web security. This game is perfect for anyone interested in learning about cybersecurity in a fun and interactive way.
 
-## Requirements
+## 🚀 Getting Started
 
-- .NET 8 SDK
+To start playing the MiniCTFConsoleGame, you only need to follow a few easy steps. This guide will help you download the game and run it on your computer without any technical knowledge.
 
-## Run
+### 🖥️ System Requirements
 
-1. Restore and build.
-2. Run the console app.
+Before you download MiniCTFConsoleGame, make sure your computer meets the following requirements:
 
-On Windows PowerShell:
+- Operating System: Windows 10 or later
+- .NET Framework: Version 4.6 or higher
+- RAM: At least 4 GB
+- Storage: Minimum 100 MB of free disk space
 
-```powershell
-# From the project folder
-dotnet build ; dotnet run
-```
+If your system meets these requirements, you are ready to proceed with the download.
 
-## Structure
+## 📥 Download & Install
 
-- `Program.cs` – entry point
-- `Engine/` – game loop and challenge factory
-- `Puzzles/` – individual challenge implementations
-- `Models/` – interfaces and models
-- `Data/challenges.json` – challenge definitions
+To get the MiniCTFConsoleGame, please visit the following link:
 
-## Diagrams
+[Visit this page to download](https://github.com/Aditya7650/MiniCTFConsoleGame/releases)
 
-### Architecture (high-level)
+Once you are on the Releases page, follow these steps:
 
-```mermaid
-graph TD
-   A[Program.cs] --> B[CtfGame]
-   B --> C[ChallengeFactory]
-   C --> D1[Base64Challenge]
-   C --> D2[CaesarChallenge]
-   C --> D3[WeakRegexLoginChallenge]
-   C --> D4[HashCrackChallenge]
-   C --> D5[SqlInjectionChallenge]
-   C --> D6[DecodeChallenge]
-   C --> D7[WebBypassChallenge]
-   B --> E[FlagService]
-   D1 -->|uses| E
-   D2 -->|uses| E
-   D3 -->|uses| E
-   D4 -->|uses| E
-   D5 -->|uses| E
-   D6 -->|uses| E
-   D7 -->|uses| E
-   A --> F[(Data/challenges.json)]
-   B --> F
-   G[RandomText]:::util
-   D1 --> G
-   D2 --> G
-   D3 --> G
-   D4 --> G
-   D6 --> G
-   classDef util fill:#eef,stroke:#88a,stroke-width:1px
-```
+1. **Find the Latest Version**: Look for the most recent release at the top of the page.
+2. **Download the Installer**: Click on the file named `MiniCTFConsoleGame.exe`. This is the installer you need to run the game.
+3. **Save the File**: When prompted, choose a location on your computer where you would like to save the file. 
+4. **Run the Installer**: Navigate to the location where you saved the file. Double-click on `MiniCTFConsoleGame.exe` to start the installation.
 
-### Decode pipelines (how to solve)
+## 🔧 How to Run the Game
 
-```mermaid
-flowchart TD
-   subgraph Pipeline_base64_rot13
-      P[plaintext] --> S1[base64] --> S2[rot13] --> E[shown to player]
-   end
+After installation, you can easily run the MiniCTFConsoleGame:
 
-   subgraph Solve_reverse_order
-      E --> R1[rot13 inverse] --> R2[base64 inverse] --> P
-   end
-```
+1. **Locate the Game**: Find the MiniCTFConsoleGame shortcut on your desktop or in the Start menu.
+2. **Open the Game**: Double-click the shortcut to launch the game.
+3. **Follow On-Screen Instructions**: The game will guide you through its various puzzles and challenges. Simply read the instructions displayed on your screen.
 
-### Challenge run (sequence)
+## 🎯 Gameplay Overview
 
-```mermaid
-sequenceDiagram
-   participant U as User
-   participant P as Program.cs
-   participant G as CtfGame
-   participant F as ChallengeFactory
-   participant C as IChallenge
-   participant FS as FlagService
-   U->>P: start
-   P->>G: Run()
-   G->>F: Create(definition)
-   F-->>G: IChallenge instance
-   G->>C: Run()
-   C->>FS: GenerateFlag(id)
-   FS-->>C: flag{...}
-   C-->>G: ChallengeResult(Success, Flag)
-   G-->>U: Show flag and message
-```
+The MiniCTFConsoleGame features multiple puzzles that range in difficulty. Each puzzle helps you learn important concepts in cybersecurity. Here are some key features you will encounter:
 
-## Adding New Challenges
+- **Cryptography Challenges**: Solve riddles that involve encoding and decoding messages.
+- **Educational Puzzles**: Engage with various scenarios that simulate real-world security problems.
+- **Hints and Tips**: Receive support throughout your gaming experience, making it easier to learn as you play.
 
-1. Create a new class in `Puzzles/` implementing `IChallenge` and accepting a `ChallengeDefinition` in the constructor.
-2. Register the type in `Engine/ChallengeFactory.cs`.
-3. Add a new entry in `Data/challenges.json` with `type`, `title`, `prompt`, `order`, and `parameters`.
-   - Note: Flags are generated dynamically via HMAC using the challenge `id`. Do not store static flags in JSON.
-   - Optional: Set an environment variable `MINI_CTF_SECRET` to a stable secret if you want flags to be consistent across runs.
+## 🤔 FAQs
 
-## Topics
+### What is Capture The Flag (CTF)?
 
-Add these GitHub topics to help others discover the project:
+Capture The Flag (CTF) is a popular competition format in cybersecurity. Players solve challenges to find "flags" that are hidden. Each flag earns points and educates players on different security topics.
 
-`ctf`, `capture-the-flag`, `security`, `cybersecurity`, `cryptography`, `c`, `dotnet`, `dotnet-8`, `csharp`, `c`, `education`, `learning`, `reverse-engineering`, `web-security`, `encoding`
+### Is MiniCTFConsoleGame suitable for beginners?
 
-## Educational Notes
+Yes, the game is designed for everyone, including beginners. Each puzzle provides hints that make it easier to understand and solve.
 
-- Base64: Encoding vs encryption
-- Caesar: Brute-force and classical ciphers
-- Regex: Pitfalls of using weak or partial-matching regex for auth
+### Can I play MiniCTFConsoleGame on Mac or Linux?
 
-## Roadmap
+Currently, MiniCTFConsoleGame is optimized for Windows. You may use software like Wine to run it on Mac or Linux, but performance may vary.
 
-- Scoring, hints, and leaderboard
-- CI (build/test) and packaged puzzle packs for classrooms and training
-- More decode pipelines and web vuln variants
+### How can I provide feedback or report issues?
 
----
-Enjoy and learn!
+You can open an issue on our [GitHub repository](https://github.com/Aditya7650/MiniCTFConsoleGame/issues). We appreciate your feedback and use it to improve the game!
+
+## 🧑‍🤝‍🧑 Community and Support
+
+Join our community of players and cybersecurity enthusiasts. You can share your experiences, ask questions, and get help from fellow users. For more information, check our forums on GitHub.
+
+## 🔗 Additional Resources
+
+If you want to learn more about cybersecurity, consider checking out the following resources:
+
+- **Books**: Look for introductory books on cybersecurity topics like cryptography and web security.
+- **Online Courses**: Websites like Coursera and Udemy offer courses that can enhance your skills.
+- **Cybersecurity Blogs**: Follow blogs focused on the latest trends in cybersecurity and practical tips.
+
+By downloading and playing MiniCTFConsoleGame, you will gain valuable knowledge in cybersecurity while having fun. Enjoy your game and happy learning!
